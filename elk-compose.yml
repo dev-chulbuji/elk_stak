@@ -1,0 +1,25 @@
+version: '3.7'
+ 
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    restart: always
+  
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.5.1
+    ports:
+      - "5044:5044"
+    volumes:
+      - /logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - /logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    restart: always
+ 
+  filebeat:
+    image: docker.elastic.co/filebeat/filebeat:6.5.1
+    volumes:
+      - ~/projects/docker_auto_build_cloud_docker/logs:/tmp/logs
+      - /filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+    restart: always

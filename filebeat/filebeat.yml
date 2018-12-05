@@ -1,0 +1,17 @@
+filebeat.prospectors:
+- input_type: log
+  enabled: true
+  paths:
+    - /tmp/logs/*.log
+  fields:
+    type: node-log
+
+output.logstash:
+  enabled: true
+  hosts: ['docker.for.mac.localhost:5044']
+  worker: 1
+  escape_html: true
+  max_retries: 3
+  backoff.max: 60s # max seconds to wait connection
+  timeout: 30s # max seconds to wait logstash response
+  bulk_max_size: 2048
