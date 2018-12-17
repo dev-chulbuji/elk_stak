@@ -2,9 +2,14 @@ filebeat.prospectors:
 - input_type: log
   enabled: true
   paths:
-    - /tmp/logs/*.log
+    - /tmp/logs/access.log
+  document_type: access-log
   fields:
-    type: node-log
+    type: access-log
+# - input_type: log
+#   paths:
+#     - "/tmp/logs/50x.log"
+#   document_type: error-log
 
 output.logstash:
   enabled: true

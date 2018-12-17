@@ -18,7 +18,7 @@ services:
     restart: always
  
   filebeat:
-    image: docker.elastic.co/filebeat/filebeat:6.5.1
+    image: docker.elastic.co/filebeat/filebeat:6.5.1docker
     volumes:
       - ~/projects/docker_auto_build_cloud_docker/logs:/tmp/logs
       - /filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml

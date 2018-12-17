@@ -2,6 +2,7 @@ version: '3.7'
  
 services:
   elasticsearch:
+    container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
     ports:
       - "9200:9200"
@@ -9,17 +10,29 @@ services:
     restart: always
   
   logstash:
+    container_name: logstash
     image: docker.elastic.co/logstash/logstash:6.5.1
     ports:
       - "5044:5044"
     volumes:
-      - /logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - /logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     restart: always
  
   filebeat:
-    image: docker.elastic.co/filebeat/filebeat:6.5.1
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:6.5.1
     volumes:
-      - ~/projects/docker_auto_build_cloud_docker/logs:/tmp/logs
-      - /filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # - ~/projects/docker_auto_build_cloud_docker/logs:/tmp/logs
+      - ~/github/vitamin/logs:/tmp/logs
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+    restart: always
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:6.5.1
+    ports:
+      - "5601:5601"
+    volumes:
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     restart: always

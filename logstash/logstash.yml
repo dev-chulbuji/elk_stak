@@ -2,4 +2,4 @@
 
 http.host: "0.0.0.0"
 xpack.monitoring.elasticsearch.url: http://docker.for.mac.localhost:9200
-# xpack.monitoring.enabled: false
+xpack.monitoring.enabled: true

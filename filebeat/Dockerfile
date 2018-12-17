@@ -1,4 +1,4 @@
-FROM docker.elastic.co/filebeat/filebeat:6.5.1
+FROM docker.elastic.co/beat/filebeat:6.5.1
 
 VOLUME ["~/projects/docker_auto_build_cloud_docker/logs", "/tmp/logs"]
 
